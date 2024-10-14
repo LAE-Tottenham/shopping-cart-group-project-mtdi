@@ -1,13 +1,18 @@
-import math # you'll probably need this
+import math
 
 exchange_rates = {
-    'USD': 1.13, #I.E. 1 Pound is 1.13 Dollars
+    'USD': 1.13, 
     'EUR': 1.15,
+    'VND': 32442.36,
+    'ZAR': 22.87,
+    'CAD': 1.80
 }
 
 def check_currency_exists(currency):
-    return
+    if currency in exchange_rates:
+        return True
+    else:
+        return False
 
 def currency_convert(original_c, new_c, amount):
-    # your code here
     return
