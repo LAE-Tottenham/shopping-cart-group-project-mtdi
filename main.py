@@ -1,6 +1,7 @@
 import pyfiglet as pfg 
 from currency_exchange_tool import currency_convert  
 from shop_functions import start_shop
+from cart import shippingCost
 
 print (pfg.figlet_format("shopping list",font="larry3d"))
 
