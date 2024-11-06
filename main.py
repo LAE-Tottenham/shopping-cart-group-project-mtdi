@@ -39,10 +39,11 @@ if canDeliver:
         if change_currency.lower() == "yes":
             currency = input("Enter the new currency that you would like to change to (ISO 4217): ").upper()
             while not check_currency_exists(currency):
+                print("We don't convert to that currency")
                 currency = input("Enter a new currency (leave blank to stop): ").upper()
                 if currency == "":
                     break
-            if check_currency_exists(currency):
+            if currency != "":
                 print(f"You will have to pay {"{:.2f}".format(currency_convert("GBP", currency, total))} {currency}")
             else:
                  print(f"You will have to pay £{total}")
