@@ -8,7 +8,7 @@ url = 'https://v6.exchangerate-api.com/v6/4f44f393d74dad8d1f909c22/latest/GBP'
 response = requests.get(url)
 exchange_rates = response.json()
 
-clean_exchange_rates = exchange_rates.get("conversion_rates")
+clean_exchange_rates = exchange_rates["conversion_rates"]
 
 def check_currency_exists(currency):
     if currency in clean_exchange_rates:

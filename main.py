@@ -4,41 +4,43 @@ from currency_exchange_tool import *
 from shop_functions import start_shop
 from account import *
 from cart import *
-login_or_create = input("would you like to login, say (yes) for login, or (no) for creating a acoount")
-if login_or_create.lower() == "yes" or "y":
-    login_account()
-else:
-    create_account()
 
-print (pfg.figlet_format("shopping list",font="larry3d"))
+#login_or_create = input("would you like to login, say (yes) for login, or (no) for creating a acoount")
+#if login_or_create.lower() == "yes" or "y":
+#    login_account()
+#else:
+#    create_account()
+
+print(pfg.figlet_format("shopping list",font="larry3d"))
 
 
-print('Please select what you would like to buy')
+print('Please select what you would like to buy\n')
 items_to_buy = start_shop()
 
-print ("enter contact details:")
-getContactDetails()
-
-print("enter the following infromation:")
+print("")
 address, canDeliver = get_address()
 
-print ("your shipping cost is:")
+if canDeliver:
+    shippingCost = shippingCost(address[2])
 
-postcode = address[2]
-validateStatus(postcode)
-shippingCost = shippingCost(postcode)
+    print(f"Your shipping cost is £{"{:.2f}".format(shippingCost)}")
 
-total = items_to_buy.get("total_cost") + shippingCost
-print(total)
+    total = round(items_to_buy["total_cost"] + shippingCost,2)
+    print(f"Your total is £{"{:.2f}".format(total)}")
 
-print("enter payment information:")
-payment_method()
+    print ("\nEnter contact details: ")
+    getContactDetails()
 
-change_currency = input("would you like to switch currencies from GBP? yes or no")
-if change_currency.lower() == "yes" or "y":
-    currency = input("enter the new currency that you would like to change to ")
-    if check_currency_exists(currency):
-        print(f"You will be given {currency_convert("GBP", currency, total)} {currency}")
+    print("")
+    payment_method()
+
+    change_currency = input("\nWould you like to switch currencies from GBP? (Yes or No) ")
+    if change_currency.lower() == "yes":
+        currency = input("Enter the new currency that you would like to change to (ISO 4217): ")
+        if check_currency_exists(currency):
+            print(f"You will have to pay {"{:.2f}".format(currency_convert("GBP", currency, total))} {currency}")
+        else:
+            print("We don't convert to that currency")
 
 
 
