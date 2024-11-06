@@ -13,17 +13,17 @@ def getContactDetails():
 def validateStatus(postcode):
     url = f"https://api.postcodes.io/postcodes/{postcode}"
     response = requests.get(url)
-    postcode = response.json()
+    validate = response.json()
 
-    status = postcode["status"]
+    status = validate["status"]
 
     while status != 200:
         print("Invalid postcode")
         postcode = input("Enter a different postcode: ")
         url = f"https://api.postcodes.io/postcodes/{postcode}"
         response = requests.get(url)
-        postcode = response.json()
-        status = postcode["status"]
+        validate = response.json()
+        status = validate["status"]
 
     return postcode
 
@@ -34,14 +34,16 @@ def get_address():
     print(pyfiglet.figlet_format("DELIVERY", font = "straight"))
     print(f"We only deliver to {str(validCountries).replace("'","").replace("[","").replace("]","")}")
     country = input(pyfiglet.figlet_format("Enter Country: ", font = "straight"))
+    while country.lower() not in [x.lower() for x in validCountries]:
+        print("We do not deliver to your country")
+        country = input("Re enter your country (leave blank if no)")
+        if country == "":
+            canDeliver = False
+            break
     town_city = input(pyfiglet.figlet_format("Enter Town/City: ", font = "straight")) 
     postcode = validateStatus(input(pyfiglet.figlet_format("Enter postcode: ", font = "straight")))
     house_number = input(pyfiglet.figlet_format("Enter house number: ", font = "straight"))
     address = [country,town_city,postcode,house_number]
-
-    if country.lower() not in [x.lower() for x in validCountries]:
-        print("We do not deliver to your country")
-        canDeliver = False
 
     return address, canDeliver
 
@@ -56,7 +58,9 @@ def shippingCost(postcode):
     response = requests.get(url)
     distance = response.json()
 
-    if delivery_method == "1":
+    if postcode.lower() == "n170bx" or postcode.lower() == "n17 0bx":
+        delivery_price = 1
+    elif delivery_method == "1":
         delivery_price = distance["rows"][0]["elements"][0]["distance"]["value"] / 1000
     elif delivery_method == "2":
         delivery_price = distance["rows"][0]["elements"][0]["distance"]["value"] / 500
@@ -65,10 +69,10 @@ def shippingCost(postcode):
 
 def payment_method():
     payment_method = input(pyfiglet.figlet_format("Would you like to pay with Visa or mastercard? ", font = "straight"))
-    card_no = int(input(pyfiglet.figlet_format("Card number: ", font = "straight")))
+    card_no = input(pyfiglet.figlet_format("Card number: ", font = "straight"))
     expiry_date = input(pyfiglet.figlet_format("Enter expiry date in the format MM/YY: ", font = "straight"))
     name = input(pyfiglet.figlet_format("Enter name: ", font = "straight"))
-    cvv = int(input(pyfiglet.figlet_format("Enter cvv: ", font = "straight")))
+    cvv = input(pyfiglet.figlet_format("Enter cvv: ", font = "straight"))
 
     return [payment_method,card_no,expiry_date,name,cvv]
     
