@@ -36,7 +36,7 @@ def get_address():
     country = input(pyfiglet.figlet_format("Enter Country: ", font = "straight"))
     while country.lower() not in [x.lower() for x in validCountries]:
         print("We do not deliver to your country")
-        country = input("Re enter your country (leave blank if no)")
+        country = input("Re enter your country (leave blank if no) ")
         if country == "":
             canDeliver = False
             break

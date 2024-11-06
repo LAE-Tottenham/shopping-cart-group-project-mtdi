@@ -1,13 +1,8 @@
-import math # you'll probably need this
 import requests
 
-# Where USD is the base currency you want to use
 url = 'https://v6.exchangerate-api.com/v6/4f44f393d74dad8d1f909c22/latest/GBP'
-
-# Making our request
 response = requests.get(url)
 exchange_rates = response.json()
-
 clean_exchange_rates = exchange_rates["conversion_rates"]
 
 def check_currency_exists(currency):
