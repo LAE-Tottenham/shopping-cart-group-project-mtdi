@@ -25,13 +25,12 @@ if canDeliver:
     print(f"\nYour shipping cost is £{"{:.2f}".format(shippingCost)}")
 
     total = round(items_to_buy["total_cost"] + shippingCost,2)
-    print(f"\nYour total is £{"{:.2f}".format(total)}")
+    print(f"\nYour total is £{"{:.2f}".format(total)}\n")
 
-    print ("\nEnter contact details: ")
-    getContactDetails()
+    contactDetails = getContactDetails()
 
     print("")
-    payment_method()
+    paymentMethod = payment_method()
 
     if total < 1000 or total > 10:
         change_currency = input("\nWould you like to switch currencies from GBP? (Yes or No) ")
