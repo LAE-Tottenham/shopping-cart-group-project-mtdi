@@ -1,4 +1,3 @@
-
 import pyfiglet as pfg 
 from currency_exchange_tool import *  
 from shop_functions import start_shop
@@ -49,17 +48,3 @@ if canDeliver:
                  print(f"You will have to pay £{total}")
 else:
     print("Your order will be cancelled")
-
-
-
-
-
-
-
-
-
-
-
-
-
-

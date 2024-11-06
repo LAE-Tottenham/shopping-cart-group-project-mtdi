@@ -19,15 +19,16 @@ def start_shop():
     total = 0
     itemList = []
 #asking user to inputs items they want
-    print(f"Current Basket: ")
+    print("Current Basket: ")
+    print("Current total: £0.00")
     while True:
         choice = input("Enter the item that you would like to purchase (leave blank to stop): ").lower()
-        print("\033[1A\033[K\033[1A\033[K\033[1A\033[K")
+        print("\033[1A\033[K\033[1A\033[K\033[1A\033[K\033[1A\033[K")
         if choice in items:
             total += items[choice]
             itemList.append(choice)
         elif choice == "":
-            print(f"Your total is £{"{:.2f}".format(round(total,2))}")
+            print(f"Your item total is £{"{:.2f}".format(round(total,2))}")
             break
         else:
             print("\033[1A\033[K")
@@ -35,10 +36,10 @@ def start_shop():
             time.sleep(1)
             print("\033[1A\033[K\033[1A\033[K")
         print(f"Current Basket: {str(itemList).replace("'","").replace("[","").replace("]","")}")
+        print(f"Current total: £{round(total,2)}")
 
     return {
         'items': itemList,
         'total_cost': round(total,2)
     }
-        
         
